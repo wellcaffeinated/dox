@@ -188,6 +188,10 @@ description:
   Dox also supports JSdoc-style tags. Currently only __@api__ is special-cased,
   providing the `comment.isPrivate` boolean so you may omit "private" utilities etc.
   
+  `@param` tags also support sub-parameters, identified by `@...` placed directly
+  underneith the `@param` tag. This is useful for parameters that accept
+  configuration objects. Sub-parameter tags are then placed in `tag.subParams`.
+  
   If dox does not have specific functionality for a particular tag, the JSON entry
   for that tag will only have a `name`, `type` and a `description` attribute.
 
@@ -199,6 +203,7 @@ description:
  * 
  * @param {String} str
  * @param {Object} options
+ * @... {stream} stream the stream reference
  * @return {Object} exports for chaining
  */
 
@@ -220,6 +225,13 @@ tags:
      { type: 'param',
        types: [ 'Object' ],
        name: 'options',
+       subParams: [
+	{
+	  type: '...',
+	  types: [ 'stream' ],
+	  name: 'stream',
+	  description: 'the stream reference'
+	}],
        description: '' },
      { type: 'return',
        types: [ 'Object' ],
