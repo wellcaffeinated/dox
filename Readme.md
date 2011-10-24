@@ -8,7 +8,29 @@ Install from npm:
 
     $ npm install -g dox
 
-## Usage Examples
+## Usage
+
+```
+
+Usage: dox [options]
+
+Options:
+
+  -h, --help     output usage information
+  -v, --version  output the version number
+  -d, --debug    output parsed comments for debugging
+
+Examples:
+
+  # stdin
+  $ dox > myfile.json
+
+  # operates over stdio
+  $ dox < myfile.js > myfile.json
+
+```
+
+### Example
 
 `dox(1)` operates over stdio:
 
@@ -87,40 +109,18 @@ output:
 ]
 ```
 
-This output can then be passed to a template for rendering. Look below at the "Properties" section for details.
+This output can then be passed to a template for rendering. Look below at the "Comments" section for details.
 
-## Usage
+## Comments
 
-```
-
-Usage: dox [options]
-
-Options:
-
-  -h, --help     output usage information
-  -v, --version  output the version number
-  -d, --debug    output parsed comments for debugging
-
-Examples:
-
-  # stdin
-  $ dox > myfile.json
-
-  # operates over stdio
-  $ dox < myfile.js > myfile.json
-
-```
-
-## Properties
-
-  A "comment" is comprised of the following detailed properties:
+A "comment" is comprised of the following detailed properties:
   
-    - tags
-    - description
-    - isPrivate
-    - ignore
-    - code
-    - ctx
+- description
+- tags
+- code
+- ctx
+- isPrivate
+- ignore
 
 ### Description
 
@@ -147,7 +147,10 @@ description:
        body: '' },
 ```
 
-  Large descriptions might look something like the following, where the "summary" is still the first paragraph, the remaining description becomes the "body". Keep in mind this _is_ markdown, so you can indent code, use lists, links, etc. Dox also augments markdown, allowing "Some Title:\n" to form a header.
+  Large descriptions might look something like the following, where the "summary"
+  is still the first paragraph, the remaining description becomes the "body". Keep
+  in mind this _is_ markdown, so you can indent code, use lists, links, etc. Dox
+  also augments markdown, allowing "Some Title:\n" to form a header.
 
 ```js
 /**
@@ -182,7 +185,11 @@ description:
 
 ### Tags
 
-  Dox also supports JSdoc-style tags. Currently only __@api__ is special-cased, providing the `comment.isPrivate` boolean so you may omit "private" utilities etc.
+  Dox also supports JSdoc-style tags. Currently only __@api__ is special-cased,
+  providing the `comment.isPrivate` boolean so you may omit "private" utilities etc.
+  
+  If dox does not have specific functionality for a particular tag, the JSON entry
+  for that tag will only have a `name`, `type` and a `description` attribute.
 
 ```js
 
@@ -235,7 +242,8 @@ exports.write = function(str, options) {
 
 ### Ctx
 
-  The `.ctx` object indicates the context of the code block, is it a method, a function, a variable etc. Below are some examples:
+  The `.ctx` object indicates the context of the code block, is it a method, a function,
+  a variable etc. Below are some examples:
 
 ```js
 exports.write = function(str, options) {
@@ -281,13 +289,19 @@ ctx:
    string: 'User()' } }
 ```
 
+### isPrivate
+
+This boolean identifies the commented code as private. If the `@api` tag is used the `comment.isPrivate` boolean will be true.
+
 ### Ignore
 
-Comments and their associated bodies of code may be flagged with "!" to be considered worth ignoring, these are typically things like file comments containing copyright etc, however you of course can output them in your templates if you want.
+This boolean, `comment.ignore`, identifies the comment as worth ignoring. Comments and their associated bodies
+of code may be flagged with "!" to trigger this boolean ignoring, these are typically things like file comments
+containing copyright etc, however you of course can output them in your templates if you want.
 
 ```
 /**
- * Not ignored.
+ * Normal comment.
  */
 ```
 
@@ -295,11 +309,11 @@ vs
 
 ```
 /*!
- * Ignored.
+ * Sets the ignore flag to true.
  */
 ```
 
-### Running tests
+## Running tests
 
  Install dev dependencies and execute `make test`:
  

@@ -195,7 +195,7 @@ module.exports = {
   'test .parseTag() @see': function(){
     var tag = dox.parseTag('@see http://google.com');
     tag.type.should.equal('see');
-    tag.title.should.equal('');
+    tag.title.should.equal('http://google.com');
     tag.url.should.equal('http://google.com');
     
     var tag = dox.parseTag('@see Google http://google.com');
@@ -205,6 +205,7 @@ module.exports = {
     
     var tag = dox.parseTag('@see exports.parseComment');
     tag.type.should.equal('see');
+    tag.title.should.equal('exports.parseComment');
     tag.local.should.equal('exports.parseComment');
    },
   
