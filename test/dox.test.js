@@ -223,6 +223,16 @@ module.exports = {
     tag.title.should.equal('Google');
     tag.url.should.equal('http://google.com');
     
+    var tag = dox.parseTag('@see {Google Homepage} http://google.com');
+    tag.type.should.equal('see');
+    tag.title.should.equal('Google Homepage');
+    tag.url.should.equal('http://google.com');
+    
+    var tag = dox.parseTag('@see {Google Homepage} of awesome http://google.com');
+    tag.type.should.equal('see');
+    tag.title.should.equal('Google Homepage of awesome');
+    tag.url.should.equal('http://google.com');
+    
     var tag = dox.parseTag('@see exports.parseComment');
     tag.type.should.equal('see');
     tag.title.should.equal('exports.parseComment');
