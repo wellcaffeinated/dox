@@ -226,12 +226,12 @@ tags:
        types: [ 'Object' ],
        name: 'options',
        subParams: [
-	{
-	  type: '...',
-	  types: [ 'stream' ],
-	  name: 'stream',
-	  description: 'the stream reference'
-	}],
+		{
+		  type: '...',
+		  types: [ 'stream' ],
+		  name: 'stream',
+		  description: 'the stream reference'
+		}],
        description: '' },
      { type: 'return',
        types: [ 'Object' ],
@@ -303,11 +303,11 @@ ctx:
 
 ### isPrivate
 
-This boolean identifies the commented code as private. If the `@api` tag is used the `comment.isPrivate` boolean will be true.
+This boolean identifies the commented code as private. If the `@api` tag is used the `.isPrivate` boolean will be true.
 
 ### Ignore
 
-This boolean, `comment.ignore`, identifies the comment as worth ignoring. Comments and their associated bodies
+This boolean, `.ignore`, identifies the comment as worth ignoring. Comments and their associated bodies
 of code may be flagged with "!" to trigger this boolean ignoring, these are typically things like file comments
 containing copyright etc, however you of course can output them in your templates if you want.
 
