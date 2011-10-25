@@ -137,6 +137,26 @@ module.exports = {
       parse.code.should.equal('exports.parse = function(str) {\n  return "wahoo";\n}');
     });
   },
+  
+  'test .parseComment() example': function(){
+      var comments = dox.parseComment('test\n\n@param {string} blah\n@example This is an example {@link http://stuff.com with a link}\nthat spans over many lines {@link boo}.\n@param {string} more')
+        , example = comments.examples[0];
+
+      comments.examples.should.have.length(1);
+      example.description.should.equal("This is an example {@link http://stuff.com with a link}\nthat spans over many lines {@link boo}.");
+  },
+  
+  'test .parseComment() inline tags': function(){
+      var comments = dox.parseComment('test\n\n@param blah a parameter {@link http://stuff.com with a link}')
+        , description = comments.tags[0].description
+	, name = comments.tags[0].name
+	, types = comments.tags[0].types;
+
+      comments.tags.should.have.length(1);
+      name.should.equal('blah');
+      types.should.have.length(0);
+      description.should.equal('a parameter {@link http://stuff.com with a link}');
+  },
 
   'test .parseCodeContext() function statement': function(){
     var ctx = dox.parseCodeContext('function foo(){\n\n}');
