@@ -139,11 +139,11 @@ module.exports = {
   },
   
   'test .parseComment() example': function(){
-      var comments = dox.parseComment('test\n\n@param {string} blah\n@example This is an example {@link http://stuff.com with a link}\nthat spans over many lines {@link boo}.\n@param {string} more')
+      var comments = dox.parseComment('test\n\n@param {string} blah\n@example This is an example \nthat spans over many lines {@link boo}.\n@param {string} more')
         , example = comments.examples[0];
 
       comments.examples.should.have.length(1);
-      example.description.should.equal("This is an example {@link http://stuff.com with a link}\nthat spans over many lines {@link boo}.");
+      example.description.should.equal("<p>This is an example <br />that spans over many lines {@link boo}.</p>");
   },
   
   'test .parseComment() inline tags': function(){
