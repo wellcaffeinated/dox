@@ -143,7 +143,7 @@ module.exports = {
         , example = comments.examples[0];
 
       comments.examples.should.have.length(1);
-      example.description.should.equal("<p>This is an example <br />that spans over many lines {@link boo}.</p>");
+      example.description.should.equal("<p>This is an example<br />that spans over many lines {@link boo}.</p>");
   },
   
   'test .parseComment() inline tags': function(){
@@ -233,7 +233,7 @@ module.exports = {
     tag.title.should.equal('Google Homepage of awesome');
     tag.url.should.equal('http://google.com');
     
-    var tag = dox.parseTag('@see exports.parseComment');
+    var tag = dox.parseTag('@see exports.parseComment ');
     tag.type.should.equal('see');
     tag.title.should.equal('exports.parseComment');
     tag.local.should.equal('exports.parseComment');
